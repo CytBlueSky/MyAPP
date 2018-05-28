@@ -6,12 +6,12 @@ package com.example.cn.myapplication.modal;
 
 public class Person {
     public String name;
-    public String phone;
-    public double sel;
+    public String tel;
+    public double salary;
 
-    public Person(String name, String phone, double sel) {
+    public Person(String name, String tel, double salary) {
         this.name = name;
-        this.phone = phone;
-        this.sel = sel;
+        this.tel = tel;
+        this.salary = salary;
     }
 }
