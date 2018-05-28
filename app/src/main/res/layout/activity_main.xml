@@ -5,73 +5,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.cn.myapplication.MainActivity">
+    <ListView
+        android:id="@+id/lv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-
-    <LinearLayout
+    </ListView>
+    <RadioGroup
+        android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="0dp">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:background="#99CC00"
-            android:layout_gravity="center_vertical"
-            android:text="第一个"
-            />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_horizontal|center_vertical"
-            android:background="#11CC00"
-            android:layout_gravity="center_vertical"
-            android:text="第二个"
-            />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal|bottom"
-            android:layout_weight="1"
-            android:background="#992200"
-            android:layout_gravity="center_vertical"
-            android:text="第三个"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="0dp">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="#CC9966"
-            android:gravity="center_vertical"
-            android:layout_gravity="center_vertical"
-            android:text="第一个"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical|center_horizontal"
-            android:background="#CCCC00"
-            android:layout_gravity="center_vertical"
-            android:text="第二个"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="#FF9966"
-            android:gravity="center_vertical|right"
-
-            android:layout_gravity="center_vertical"
-            android:text="第三个"
-            />
-    </LinearLayout>
+        android:layout_height="wrap_content">
+        <RadioButton
+            style="@style/RadioButton"
+            android:drawableTop="@drawable/icon01_selector"
+            android:text="首页" />
+        <RadioButton
+            style="@style/RadioButton"
+            android:drawableTop="@drawable/icon02_selector"
+            android:text="统计" />
+        <RadioButton
+            style="@style/RadioButton"
+            android:drawableTop="@drawable/icon03_selector"
+            android:text="设置" />
+        <RadioButton
+            style="@style/RadioButton"
+            android:drawableTop="@drawable/icon04_selector"
+            android:text="更多" />
+    </RadioGroup>
 </LinearLayout>
