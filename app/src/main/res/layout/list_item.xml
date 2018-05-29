@@ -3,7 +3,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <ImageView
+    <com.loopj.android.image.SmartImageView
         android:id="@+id/imgv"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"

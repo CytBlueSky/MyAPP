@@ -22,6 +22,7 @@ import com.example.cn.myapplication.R;
 import com.example.cn.myapplication.modal.Person;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.loopj.android.image.SmartImageView;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -102,31 +103,11 @@ public class MainActivity extends Activity {
                                 {
                                     view=convertView;
                                 }
-                                ImageView img=(ImageView) view.findViewById(R.id.imgv);
+                                SmartImageView img=(SmartImageView) view.findViewById(R.id.imgv);
+                                img.setImageUrl(person.name);
 
-                                try {
-                                    URL url=new URL("http://img.sccnn.com/bimg/338/26585.jpg");
-                                    HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-                                    connection.setRequestMethod("GET");//设置请求方式这里的方式必须为大写
-                                    connection.setConnectTimeout(5000);//设置超时的时间
-                                    connection.setDoInput(true);
-                                    if (connection.getResponseCode()==200)
-                                    {
-                                        InputStream is = connection.getInputStream();
-                                        Bitmap bitmap = BitmapFactory.decodeStream(is);//写入一个bitmap流
-                                        img.setImageBitmap(bitmap);
-                                    }
-                                    //int code = connection.getResponseCode();//获得状态码
-
-                                } catch (MalformedURLException e) {
-                                    e.printStackTrace();
-                                } catch (ProtocolException e) {
-                                    e.printStackTrace();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
                                 TextView tx_name=(TextView) view.findViewById(R.id.tx_name);
-                                tx_name.setText(person.name.substring(0,9));
+                                tx_name.setText("张三丰");
                                 TextView tx_phone=(TextView) view.findViewById(R.id.tx_phone);
                                 tx_phone.setText("电话："+person.tel);
                                 TextView tx_sel=(TextView) view.findViewById(R.id.tx_sel);
