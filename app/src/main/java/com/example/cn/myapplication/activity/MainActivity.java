@@ -1,6 +1,7 @@
 package com.example.cn.myapplication.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.StrictMode;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -38,6 +40,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 @ContentView(value=R.layout.activity_main)
 public class MainActivity extends Activity {
@@ -47,13 +51,41 @@ public class MainActivity extends Activity {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private ListView lv;
-    private static final int MSG_SUCCESS = 0;// 获取图片成功的标识
-    private static final int MSG_FAILURE = 1;// 获取图片失败的标识
 
     RadioButton rbn1=null;
     RadioButton rbn2=null;
     List<Person> prelist;
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode==KeyEvent.KEYCODE_BACK)
+        {
+            exitApp();
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+    private boolean isExit=false;
+    private void exitApp(){
+        if (!isExit) {
+            isExit = true;
+            //启动一个线程，2秒后修改为false
+            Toast.makeText(this, "再按一次退出APP", Toast.LENGTH_LONG).show();
+            new Timer(true).schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    isExit=false;
+                }
+            },2000);
+        }
+        else{
+            //调转至主页面
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            startActivity(intent);
+            System.exit(0);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
