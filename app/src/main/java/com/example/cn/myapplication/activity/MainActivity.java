@@ -105,7 +105,7 @@ public class MainActivity extends Activity {
                                 ImageView img=(ImageView) view.findViewById(R.id.imgv);
 
                                 try {
-                                    URL url=new URL("http://pic.qiantucdn.com/58pic/16/63/60/44X58PICjcg_1024.jpg!/fw/1024/watermark/url/L3dhdGVybWFyay12MS4zLnBuZw==/align/center/crop/0x1024a0a0");
+                                    URL url=new URL("http://img.sccnn.com/bimg/338/26585.jpg");
                                     HttpURLConnection connection = (HttpURLConnection)url.openConnection();
                                     connection.setRequestMethod("GET");//设置请求方式这里的方式必须为大写
                                     connection.setConnectTimeout(5000);//设置超时的时间
@@ -120,18 +120,13 @@ public class MainActivity extends Activity {
 
                                 } catch (MalformedURLException e) {
                                     e.printStackTrace();
-                                    Log.i("MMM","C1");
                                 } catch (ProtocolException e) {
                                     e.printStackTrace();
-                                    Log.i("MMM","C2");
                                 } catch (IOException e) {
                                     e.printStackTrace();
-                                    Log.i("MMM","C3");
                                 }
-
-
                                 TextView tx_name=(TextView) view.findViewById(R.id.tx_name);
-                                tx_name.setText(person.name);
+                                tx_name.setText(person.name.substring(0,9));
                                 TextView tx_phone=(TextView) view.findViewById(R.id.tx_phone);
                                 tx_phone.setText("电话："+person.tel);
                                 TextView tx_sel=(TextView) view.findViewById(R.id.tx_sel);
@@ -168,28 +163,30 @@ public class MainActivity extends Activity {
         rbn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                prelist.clear();
-                lv.setAdapter(new BaseAdapter() {
-                    @Override
-                    public int getCount() {
-                        return prelist.size();
-                    }
+                if (prelist!=null) {
+                    prelist.clear();
+                    lv.setAdapter(new BaseAdapter() {
+                        @Override
+                        public int getCount() {
+                            return prelist.size();
+                        }
 
-                    @Override
-                    public Object getItem(int position) {
-                        return prelist.get(position);
-                    }
+                        @Override
+                        public Object getItem(int position) {
+                            return prelist.get(position);
+                        }
 
-                    @Override
-                    public long getItemId(int position) {
-                        return 0;
-                    }
+                        @Override
+                        public long getItemId(int position) {
+                            return 0;
+                        }
 
-                    @Override
-                    public View getView(int position, View convertView, ViewGroup parent) {
-                        return null;
-                    }
-                });
+                        @Override
+                        public View getView(int position, View convertView, ViewGroup parent) {
+                            return null;
+                        }
+                    });
+                }
             }
         });
 
