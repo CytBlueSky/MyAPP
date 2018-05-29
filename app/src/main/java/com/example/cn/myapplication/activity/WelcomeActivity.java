@@ -32,7 +32,6 @@ public class WelcomeActivity extends Activity {
         //正常activity是一个栈结构，此处根据需求定义一个新栈，而且把之前的栈删掉
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +45,7 @@ public class WelcomeActivity extends Activity {
         for (int i=0;i< resId.length;i++){
             ImageView iv=new ImageView(this);
             iv.setImageResource(resId[i]);
+            iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
             iList.add(iv);
         }
         iList.add(View.inflate(WelcomeActivity.this ,R.layout.start_main,null));
