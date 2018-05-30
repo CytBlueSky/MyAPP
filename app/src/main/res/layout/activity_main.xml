@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity">
-    <ListView
-        android:id="@+id/lv"
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:id="@+id/mFrame"/>
 
-    </ListView>
     <RadioGroup
         android:layout_width="match_parent"
         android:orientation="horizontal"
@@ -19,21 +19,25 @@
         <RadioButton
             android:id="@+id/rtn1"
             style="@style/RadioButton"
+            android:tag="rtn1"
             android:drawableTop="@drawable/icon01_selector"
             android:text="首页" />
         <RadioButton
             android:id="@+id/rtn2"
             style="@style/RadioButton"
+            android:tag="rtn2"
             android:drawableTop="@drawable/icon02_selector"
             android:text="统计" />
         <RadioButton
             android:id="@+id/rtn3"
             style="@style/RadioButton"
+            android:tag="rtn3"
             android:drawableTop="@drawable/icon03_selector"
             android:text="设置" />
         <RadioButton
             android:id="@+id/rtn4"
             style="@style/RadioButton"
+            android:tag="rtn4"
             android:drawableTop="@drawable/icon04_selector"
             android:text="更多" />
     </RadioGroup>

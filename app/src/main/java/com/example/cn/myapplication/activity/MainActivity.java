@@ -8,11 +8,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.StrictMode;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -21,6 +25,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cn.myapplication.R;
+import com.example.cn.myapplication.fragment.ffirst;
+import com.example.cn.myapplication.fragment.ffourth;
+import com.example.cn.myapplication.fragment.fsecond;
+import com.example.cn.myapplication.fragment.fthird;
 import com.example.cn.myapplication.modal.Person;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -44,18 +52,18 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 @ContentView(value=R.layout.activity_main)
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity implements View.OnClickListener {
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
-    private ListView lv;
-
     RadioButton rbn1=null;
     RadioButton rbn2=null;
-    List<Person> prelist;
-
+    RadioButton rbn3=null;
+    RadioButton rbn4=null;
+    protected FrameLayout mFrame;
+    FragmentManager fm;
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode==KeyEvent.KEYCODE_BACK)
@@ -91,124 +99,37 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);//此行代码必须添加，获取注解的值
-        //setContentView(R.layout.activity_main);
-        lv=(ListView)findViewById(R.id.lv);
-
-        rbn1 = (RadioButton)findViewById(R.id.rtn1) ;
-        rbn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                RequestParams params = new RequestParams("http://www.jxy-edu.com/ajaxServlet");
-                params.addQueryStringParameter("wd", "xUtils");
-                x.http().get(params, new Callback.CommonCallback<String>() {
-                    @Override
-                    public void onSuccess(String result) {
-                        Gson gson=new Gson();
-                        Log.i("AA",result);
-                        prelist= gson.fromJson(result,new TypeToken<List<Person>>() {}.getType());
-                        lv.setAdapter(new BaseAdapter() {
-                            @Override
-                            public int getCount() {
-                                return prelist.size();
-                            }
-                            @Override
-                            public Object getItem(int position) {
-                                return prelist.get(position);
-                            }
-                            @Override
-                            public long getItemId(int position) {
-                                return 0;
-                            }
-                            @Override
-                            public View getView(int position, View convertView, ViewGroup parent) {
-                                //获取布局文件
-                                //添加数据
-                                //返回View组件
-                                Person person=prelist.get(position);
-                                Log.i("zp","position"+position+","+convertView+",person:"+person);
-                                Log.i("cyt","name:"+person.name+",phone:"+person.tel+",sel:"+person.salary);
-                                View view=null;
-                                if (convertView==null){
-                                    view=View.inflate(MainActivity.this,R.layout.list_item,null);
-                                }
-                                else
-                                {
-                                    view=convertView;
-                                }
-                                SmartImageView img=(SmartImageView) view.findViewById(R.id.imgv);
-                                img.setImageUrl(person.name);
-
-                                TextView tx_name=(TextView) view.findViewById(R.id.tx_name);
-                                tx_name.setText("张三丰");
-                                TextView tx_phone=(TextView) view.findViewById(R.id.tx_phone);
-                                tx_phone.setText("电话："+person.tel);
-                                TextView tx_sel=(TextView) view.findViewById(R.id.tx_sel);
-                                tx_sel.setText("工资："+person.salary+"");
-                                return view;
-                            }
-                        });
-                    }
-                    @Override
-                    public void onError(Throwable ex, boolean isOnCallback) {
-                        //Toast.makeText(x.app(), ex.getMessage(), Toast.LENGTH_LONG).show();
-                        Toast.makeText(x.app(), "error", Toast.LENGTH_LONG).show();
-                    }
-                    @Override
-                    public void onCancelled(CancelledException cex) {
-                        Toast.makeText(x.app(), "cancelled", Toast.LENGTH_LONG).show();
-                    }
-                    @Override
-                    public void onFinished() {
-
-                    }
-                });
-            }
-        });
-
-        //模拟数据读取
-        //final List<Person> prelist=new ArrayList<Person>();
-        StrictMode.setThreadPolicy(new
-                StrictMode.ThreadPolicy.Builder().detectDiskReads().detectDiskWrites().detectNetwork().penaltyLog().build());
-        StrictMode.setVmPolicy(
-                new StrictMode.VmPolicy.Builder().detectLeakedSqlLiteObjects().detectLeakedClosableObjects().penaltyLog().penaltyDeath().build());
-
-        rbn2 = (RadioButton)findViewById(R.id.rtn2) ;
-        rbn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (prelist!=null) {
-                    prelist.clear();
-                    lv.setAdapter(new BaseAdapter() {
-                        @Override
-                        public int getCount() {
-                            return prelist.size();
-                        }
-
-                        @Override
-                        public Object getItem(int position) {
-                            return prelist.get(position);
-                        }
-
-                        @Override
-                        public long getItemId(int position) {
-                            return 0;
-                        }
-
-                        @Override
-                        public View getView(int position, View convertView, ViewGroup parent) {
-                            return null;
-                        }
-                    });
-                }
-            }
-        });
-
-
-
-
+        //setContentView(R.layout.activity_main)
+        rbn1=(RadioButton)findViewById(R.id.rtn1);
+        rbn2=(RadioButton)findViewById(R.id.rtn2);
+        rbn3=(RadioButton)findViewById(R.id.rtn3);
+        rbn4=(RadioButton)findViewById(R.id.rtn4);
+        rbn1.setOnClickListener(this);
+        rbn2.setOnClickListener(this);
+        rbn3.setOnClickListener(this);
+        rbn4.setOnClickListener(this);
+        fm= getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.mFrame,new fsecond()).commit();
+        rbn1.setChecked(true);
     }
-
-
-
-
+    @Override
+    public void onClick(View v) {
+        switch ((String)v.getTag()){
+            case "rtn1":
+                fm.beginTransaction().replace(R.id.mFrame,new fsecond()).commit();
+                // FragmentManager工具类,来获取Fragment
+                break;
+            case "rtn2":
+                FragmentTransaction ft= fm.beginTransaction();
+                ft.replace(R.id.mFrame,new ffirst());
+                ft.commit();
+                break;
+            case "rtn3":
+                fm.beginTransaction().replace(R.id.mFrame,new fthird()).commit();
+                break;
+            case "rtn4":
+                fm.beginTransaction().replace(R.id.mFrame,new ffourth()).commit();
+                break;
+        }
+    }
 }
