@@ -2,18 +2,22 @@ package com.example.cn.myapplication.fragment;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.LayoutInflaterCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cn.myapplication.R;
+import com.example.cn.myapplication.activity.DetailActivity;
 import com.example.cn.myapplication.activity.MainActivity;
 import com.example.cn.myapplication.modal.Person;
 import com.google.gson.Gson;
@@ -26,6 +30,7 @@ import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
 /**
@@ -37,13 +42,25 @@ public class ffirst extends Fragment {
     public ffirst() {
         // Required empty public constructor
     }
-
+    public class ItemClickListener implements android.widget.AdapterView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            String text = (String) ((TextView)view.findViewById(R.id.bh)).getText();
+            //大多数情况下，position和id相同，并且都从0开始
+            String showText = "点击了内码为：" + text +"的内容。" ;
+            //Toast.makeText(getActivity(),showText,Toast.LENGTH_SHORT).show();
+            Intent intent=new Intent(getActivity(), DetailActivity.class);
+            intent.putExtra("ID",text);
+            startActivity(intent);
+        }
+    }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_ffirst,container,false);
         lv=(ListView)view.findViewById(R.id.lv) ;
+        lv.setOnItemClickListener(new ItemClickListener());
         RequestParams params = new RequestParams("http://www.jxy-edu.com/ajaxServlet");
         params.addQueryStringParameter("wd", "xUtils");
         x.http().get(params, new Callback.CommonCallback<String>(){
@@ -89,6 +106,9 @@ public class ffirst extends Fragment {
                                 tx_phone.setText("电话："+person.tel);
                                 TextView tx_sel=(TextView) v.findViewById(R.id.tx_sel);
                                 tx_sel.setText("工资："+person.salary+"");
+                                TextView tx_bh=(TextView) v.findViewById(R.id.bh);
+                                tx_bh.setText("内码10010"+position);
+
                                 return v;
                             }
                         });
